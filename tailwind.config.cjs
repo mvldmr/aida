@@ -5,7 +5,22 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'very-peri': {
+          DEFAULT: '#6868AC',
+          light: '#8b8bcc',
+          dark: '#49498d',
+          darkness: '#323273',
+        }
+      },
+      height: {
+        'screen-half': '50vh'
+      },
+      margin: {
+        '10-per': '10%'
+      }
+    },
   },
   plugins: [],
 }

@@ -39,7 +39,7 @@ function fixCards(wrapper:HTMLElement, cards:HTMLDivElement[], distance: number)
 	const windowHeight = window.innerHeight;
 	let cardWidth = cards[0] ? cards[0].clientWidth : 0;
 
-	const updateCard = () => {
+	const updateCardsPosition = () => {
 		cards.forEach((card, i) => {
 			if (window.scrollY >= startPosition && window.scrollY < endPosition) {
 				if (getComputedStyle(card).position !== 'fixed') {
@@ -63,13 +63,13 @@ function fixCards(wrapper:HTMLElement, cards:HTMLDivElement[], distance: number)
 
 			} else if (window.scrollY + windowHeight >= endPosition) {
 				if (getComputedStyle(card).position === 'fixed') {
-					if (i === 1) card.style.transform = `translateX(${cardWidth}px)`;
-					if (i === 2) card.style.transform = `translateX(${cardWidth * 2}px)`;
 					card.style.position = '';
 					card.style.left = '';
-					card.style.top = distance + 'px';
 					card.style.width = '';
 				}
+				if (i === 1) card.style.transform = `translateX(${cardWidth}px)`;
+				if (i === 2) card.style.transform = `translateX(${cardWidth * 2}px)`;
+				card.style.top = distance + 'px';
 			} else {
 				card.style.position = '';
 				card.style.left = '';
@@ -83,7 +83,7 @@ function fixCards(wrapper:HTMLElement, cards:HTMLDivElement[], distance: number)
 	const updateCardDistance = () => {
 		setTimeout(function() {
 			if (document.documentElement.clientWidth < 768) {
-				window.removeEventListener('scroll', updateCard);
+				window.removeEventListener('scroll', updateCardsPosition);
 				return;
 			}
 			cardWidth = cards[0] ? cards[0].clientWidth : 0;
@@ -94,11 +94,12 @@ function fixCards(wrapper:HTMLElement, cards:HTMLDivElement[], distance: number)
 	}
 
 	if (!isActiveAnim) {
-		window.removeEventListener('scroll', updateCard);
+		window.removeEventListener('scroll', updateCardsPosition);
 		return;
 	}
-	window.removeEventListener('scroll', updateCard);
-	window.addEventListener('scroll', updateCard);
+	updateCardsPosition();
+	window.removeEventListener('scroll', updateCardsPosition);
+	window.addEventListener('scroll', updateCardsPosition);
 	window.removeEventListener(changeEvent, updateCardDistance);
 	window.addEventListener(changeEvent, updateCardDistance);
 }

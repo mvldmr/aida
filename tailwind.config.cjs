@@ -10,6 +10,7 @@ module.exports = {
         'very-peri': {
           DEFAULT: '#6868AC',
           light: '#8b8bcc',
+          lightness: '#c1c1f1',
           dark: '#49498d',
           darkness: '#323273',
         }
